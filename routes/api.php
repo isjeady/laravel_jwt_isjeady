@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -18,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+Route::post('auth/login', 'AuthController@login');
+
 Route::post('auth/register', 'AuthController@register');
 
-Route::post('auth/login', 'AuthController@login');
+
