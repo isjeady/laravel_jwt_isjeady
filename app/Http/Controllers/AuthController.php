@@ -64,6 +64,30 @@ class AuthController extends Controller
 
     }
 
+    
+    public function me(){
+        //the same
+        $userDB = User::find(Auth::user()->id);
+        $userSession = $this->guard()->user();
+
+        return response([
+            'status' => 'success',
+            'data' => $userSession //or userDB
+        ]);
+    }
+
+    public function refresh(){
+        return $this->respondWithToken($this->guard()->refresh());
+    }
+
+    public function logout()    {
+        JWTAuth::invalidate();
+
+        return response([
+            'status' => 'success',
+            'msg' => 'Logged out Successfully.'
+        ], 200);
+    }
 
     protected function respondWithToken($token){
         return response()->json([

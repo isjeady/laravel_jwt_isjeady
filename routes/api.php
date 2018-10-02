@@ -24,4 +24,11 @@ Route::post('auth/login', 'AuthController@login');
 Route::post('auth/register', 'AuthController@register');
 
 
+Route::group(['middleware' => 'jwt.auth'], function(){
+	Route::get('auth/me', 'AuthController@me');
+    Route::post('auth/logout', 'AuthController@logout');
+    Route::get('auth/refresh', 'AuthController@refresh');
+});
+
+
 
