@@ -7,7 +7,6 @@ use JWTAuth;
 use Validator;
 use App\User;
 use Illuminate\Http\Request;
-
 use App\Http\Requests\RegisterRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -61,10 +60,21 @@ class AuthController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return response([
-            'status' => 'success'
-        ])
-        ->header('Authorization', $token);
+        return $this->respondWithToken($token);
+
+    }
+
+
+    protected function respondWithToken($token){
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => $this->guard()->factory()->getTTL() * 60
+        ]);
+    }
+
+    public function guard(){
+        return Auth::guard();
     }
 
 }
