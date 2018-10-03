@@ -9,6 +9,8 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Token;
 
 class AuthController extends Controller
 {
@@ -32,36 +34,52 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response([
-                    'status' => 'error',
-                    'error' => 'invalid.credentials',
-                    'msg' => 'Invalid Credentials.'
-                ], 401);
+        //find user with Email
+        $userDB = User::where('email', $request->get('email'))->first();
+        //check the password
+        $validCredentials = Hash::check($request['password'], $userDB->getAuthPassword());
+        if ($validCredentials) {
+            
+            try {
+                // attempt to verify the credentials and create a token for the user
+                $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+                if (!$token =  JWTAuth::attempt($credentials)) {
+                    return response([
+                        'status' => 'error',
+                        'error' => 'invalid.credentials',
+                        'msg' => 'Invalid Credentials.'
+                    ], 401);
+                }
+                /*
+                //Creating a Token based on a user object
+    
+                $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+                    JWTAuth::attempt($credentials, $customClaims);
+                    // or
+                    JWTAuth::fromUser($user, $customClaims);
+                //----------------------------------------------------
+                //Creating a Token based on anything you like
+    
+                $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+                $payload = JWTFactory::make($customClaims);
+                $token = JWTAuth::encode($payload);
+                */
+            }catch (JWTException $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['error' => 'could_not_create_token'], 500);
             }
-            /*
-            //Creating a Token based on a user object
 
-            $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
-                JWTAuth::attempt($credentials, $customClaims);
-                // or
-                JWTAuth::fromUser($user, $customClaims);
-            //----------------------------------------------------
-            //Creating a Token based on anything you like
-
-            $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
-            $payload = JWTFactory::make($customClaims);
-            $token = JWTAuth::encode($payload);
-            */
-        }catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['error' => 'could_not_create_token'], 500);
+        }else{
+            return response([
+                'status' => 'error',
+                'error' => 'invalid.credentials',
+                'msg' => 'Invalid Credentials.'
+            ], 401);
         }
 
+        //return JWTAuth::decode(new Token($token));
+        
         return $this->respondWithToken($token);
-
     }
 
     
