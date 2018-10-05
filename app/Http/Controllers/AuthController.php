@@ -37,6 +37,14 @@ class AuthController extends Controller
         //find user with Email
         $userDB = User::where('email', $request->get('email'))->first();
         //check the password
+        if(!$userDB){
+            return response([
+                'status' => 'error',
+                'error' => 'invalid.credentials',
+                'msg' => 'Invalid Credentials.'
+            ], 401);
+        }
+
         $validCredentials = Hash::check($request['password'], $userDB->getAuthPassword());
         if ($validCredentials) {
             
