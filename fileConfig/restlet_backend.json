@@ -1,0 +1,255 @@
+{
+  "front-version": "2.19.1",
+  "version": 3,
+  "nodes": [
+    {
+      "type": "Project",
+      "id": "5b3673fd-0f69-4615-abed-6f6c17e735c8",
+      "lastModified": "2018-10-05T10:15:16.998+02:00",
+      "name": "Laravel IsJeady Jwt Auth"
+    },
+    {
+      "type": "Service",
+      "id": "b596c4a6-9cb2-4bab-b2fc-3a5f93482ad7",
+      "lastModified": "2018-10-05T09:05:12.372+02:00",
+      "name": "Auth",
+      "parentId": "5b3673fd-0f69-4615-abed-6f6c17e735c8"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"email\" : \"vitto.leandro@gmail.com\",\n  \"password\" : \"123456\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "127.0.0.1:8000/api/auth/login"
+      },
+      "id": "fafa48c6-2bd6-4b52-902a-3b547bf6e6cc",
+      "lastModified": "2018-10-05T10:08:42.348+02:00",
+      "name": "Login",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|103321182048403017282"
+      },
+      "parentId": "b596c4a6-9cb2-4bab-b2fc-3a5f93482ad7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": ""
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "127.0.0.1:8000",
+        "path": "/api/auth/logout"
+      },
+      "id": "2c00784b-8b53-4b0b-afe2-d732cbb37aba",
+      "lastModified": "2018-10-05T10:15:16.998+02:00",
+      "name": "Logout",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "bearer ${\"Laravel IsJeady Jwt Auth\".\"Auth\".\"Login\".\"response\".\"body\".\"access_token\"}"
+        },
+        {
+          "name": "Authorization",
+          "value": "bearer ${\"Laravel IsJeady Jwt Auth\".\"Auth\".\"Refresh_\".\"response\".\"body\".\"access_token\"}"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|103321182048403017282"
+      },
+      "parentId": "b596c4a6-9cb2-4bab-b2fc-3a5f93482ad7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "GET"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\r\n  \"email\" : \"vitto.leandro@gmail.com\",\r\n  \"password\" : \"123456\"\r\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "127.0.0.1:8000/api/auth/me"
+      },
+      "id": "74b355bd-e14b-4443-b69f-2faef02f9083",
+      "lastModified": "2018-10-05T10:13:45.965+02:00",
+      "name": "Me",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "bearer ${\"Laravel IsJeady Jwt Auth\".\"Auth\".\"Login\".\"response\".\"body\".\"access_token\"}"
+        },
+        {
+          "name": "Authorization",
+          "value": "bearer ${\"Laravel IsJeady Jwt Auth\".\"Auth\".\"Refresh_\".\"response\".\"body\".\"access_token\"}"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|103321182048403017282"
+      },
+      "parentId": "b596c4a6-9cb2-4bab-b2fc-3a5f93482ad7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "GET"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\r\n  \"email\" : \"vitto.leandro@gmail.com\",\r\n  \"password\" : \"123456\"\r\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "127.0.0.1:8000",
+        "path": "/api/auth/refresh"
+      },
+      "id": "a80ff76f-6dee-47a1-aa1c-b0f5e11c1085",
+      "lastModified": "2018-10-05T10:03:25.917+02:00",
+      "name": "Refresh_",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "bearer ${\"Laravel IsJeady Jwt Auth\".\"Auth\".\"Login\".\"response\".\"body\".\"access_token\"}"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|103321182048403017282"
+      },
+      "parentId": "b596c4a6-9cb2-4bab-b2fc-3a5f93482ad7"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "https://tools.ietf.org/html/rfc7231#section-4.3",
+        "name": "POST"
+      },
+      "body": {
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\r\n  \"name\" : \"Leandro\",\r\n  \"password\" : \"123456\",\r\n  \"password_confirmation\" : \"123456\",\r\n  \"email\" : \"vitto.leandro@gmail.com\"\r\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "path": "127.0.0.1:8000/api/auth/register"
+      },
+      "id": "215b7ed5-e0bc-4c80-b2eb-99d0bbc6e65b",
+      "lastModified": "2018-10-05T09:05:12.373+02:00",
+      "name": "Register",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "enabled": true,
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "assertions": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|103321182048403017282"
+      },
+      "parentId": "b596c4a6-9cb2-4bab-b2fc-3a5f93482ad7"
+    }
+  ]
+}

@@ -42,7 +42,6 @@ class AuthController extends Controller
             
             try {
                 // attempt to verify the credentials and create a token for the user
-                $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
                 if (!$token =  JWTAuth::attempt($credentials)) {
                     return response([
                         'status' => 'error',
@@ -85,13 +84,16 @@ class AuthController extends Controller
     
     public function me(){
         //the same
-        $userDB = User::find(Auth::user()->id);
+        //$userDB = User::find(Auth::user()->id);
         $userSession = $this->guard()->user();
+
+        //dd($userSession);
 
         return response([
             'status' => 'success',
             'data' => $userSession //or userDB
         ]);
+        
     }
 
     public function refresh(){
